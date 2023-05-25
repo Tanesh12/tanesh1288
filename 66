@@ -1,0 +1,22 @@
+
+def solution(M, A):
+
+    N = len(A)
+    distinct_slices = set()
+    front, back = 0, 0
+    count = 0
+
+    while front < N and back < N:
+        while front < N and A[front] not in distinct_slices:
+            distinct_slices.add(A[front])
+            count += len(distinct_slices)
+            front += 1
+
+        while back < N and front < N and A[back] != A[front]:
+            distinct_slices.remove(A[back])
+            back += 1
+
+        distinct_slices.remove(A[back])
+        back += 1
+
+    return min(count, 1_000_000_000)
